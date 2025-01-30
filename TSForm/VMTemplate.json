@@ -1,0 +1,14 @@
+{
+    "DellR740": {
+        "HQ": [
+            {"Role": "AD", "Memory": "4GB", "VHDSize": "40GB", "VCPUs": 2, "SwitchName": "HQNetwork"},
+            {"Role": "SQL", "Memory": "8GB", "VHDSize": "100GB", "VCPUs": 4, "SwitchName": "HQNetwork"}
+        ],
+        "Remote": [
+            {"Role": "Exchange", "Memory": "16GB", "VHDSize": "120GB", "VCPUs": 4, "SwitchName": "RemoteNetwork"}
+        ]
+    },
+    "HPProLiant": {
+        // Similar structure for another hardware platform
+    }
+}
