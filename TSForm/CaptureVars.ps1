@@ -39,51 +39,62 @@ function Validate-DNSIPs {
 
 # Define the form
 $form = New-Object System.Windows.Forms.Form
-$form.Text = "Server Configuration"
-$form.Size = New-Object System.Drawing.Size(400,400)
+$form.Text = "Deployed ICT Server Configuration Form"
+$form.Size = New-Object System.Drawing.Size(500,410)
 $form.StartPosition = "CenterScreen"
 
 # Set regex patterns for IP address and CIDR
 $ipPattern = "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
 $cidrPattern = "^(3[0-2]|[1-2]?[0-9]|[0-9])$"
 
+# Input box for form description
+$formNameLabel = New-Object System.Windows.Forms.Label
+$formNameLabel.Location = New-Object System.Drawing.Point(10,10)
+$formNameLabel.Size = New-Object System.Drawing.Size(410,40)
+$formNameLabel.Text = "Complete the form below to configure server settings for deployment.  Ensure all fields are filled in correctly and click the Submit button to proceed with the build.`nThe Create VMs option is only available for Hyper-V server builds."  
+
 # Radio buttons for server version selection
 $server2022RadioButton = New-Object System.Windows.Forms.RadioButton
-$server2022RadioButton.Location = New-Object System.Drawing.Point(10,20)
+$server2022RadioButton.Location = New-Object System.Drawing.Point(10,60)
 $server2022RadioButton.Size = New-Object System.Drawing.Size(100,20)
 $server2022RadioButton.Text = "Server 2022"
 
 $server2025RadioButton = New-Object System.Windows.Forms.RadioButton
-$server2025RadioButton.Location = New-Object System.Drawing.Point(10,40)
+$server2025RadioButton.Location = New-Object System.Drawing.Point(10,80)
 $server2025RadioButton.Size = New-Object System.Drawing.Size(100,20)
 $server2025RadioButton.Text = "Server 2025"
 $server2025RadioButton.Checked = $true
 
 # Input box for computer name
 $computerNameLabel = New-Object System.Windows.Forms.Label
-$computerNameLabel.Location = New-Object System.Drawing.Point(10,70)
+$computerNameLabel.Location = New-Object System.Drawing.Point(10,110)
 $computerNameLabel.Size = New-Object System.Drawing.Size(100,20)
-$computerNameLabel.Text = "Computer Name:"
+$computerNameLabel.Text = "Server Name:"
 
 $computerNameTextBox = New-Object System.Windows.Forms.TextBox
-$computerNameTextBox.Location = New-Object System.Drawing.Point(110,70)
+$computerNameTextBox.Location = New-Object System.Drawing.Point(110,110)
 $computerNameTextBox.Size = New-Object System.Drawing.Size(110,20)
 $computerNameTextBox.Add_TextChanged({
     if ($computerNameTextBox.Text.Length -ne 14) {
         $computerNameTextBox.BackColor = "Red"
     } else {
         $computerNameTextBox.BackColor = "White"
+        if ($computerNameTextBox.Text -match ".*(hx|hc).*") {
+            $createVMSCheckbox.Enabled = $true
+        } else {
+            $createVMSCheckbox.Enabled = $false
+        }
     }
 })
 
 # Input box for IP Address
 $ipAddressLabel = New-Object System.Windows.Forms.Label
-$ipAddressLabel.Location = New-Object System.Drawing.Point(10,100)
+$ipAddressLabel.Location = New-Object System.Drawing.Point(10,130)
 $ipAddressLabel.Size = New-Object System.Drawing.Size(100,20)
 $ipAddressLabel.Text = "IP Address:"
 
 $ipAddressTextBox = New-Object System.Windows.Forms.TextBox
-$ipAddressTextBox.Location = New-Object System.Drawing.Point(110,100)
+$ipAddressTextBox.Location = New-Object System.Drawing.Point(110,130)
 $ipAddressTextBox.Size = New-Object System.Drawing.Size(110,20)
 $ipAddressTextBox.Add_TextChanged({
     if ($ipAddressTextBox.Text -match $ipPattern -and $cidrTextBox.Text -match $cidrPattern) {
@@ -99,12 +110,12 @@ $ipAddressTextBox.Add_TextChanged({
 
 # Input box for Subnet CIDR
 $cidrLabel = New-Object System.Windows.Forms.Label
-$cidrLabel.Location = New-Object System.Drawing.Point(10,130)
+$cidrLabel.Location = New-Object System.Drawing.Point(10,150)
 $cidrLabel.Size = New-Object System.Drawing.Size(100,20)
 $cidrLabel.Text = "Subnet CIDR:"
 
 $cidrTextBox = New-Object System.Windows.Forms.TextBox
-$cidrTextBox.Location = New-Object System.Drawing.Point(110,130)
+$cidrTextBox.Location = New-Object System.Drawing.Point(110,150)
 $cidrTextBox.Size = New-Object System.Drawing.Size(110,20)
 $cidrTextBox.Add_TextChanged({
     if ($cidrTextBox.Text -match $cidrPattern -and $ipAddressTextBox.Text -match $ipPattern) {
@@ -120,12 +131,12 @@ $cidrTextBox.Add_TextChanged({
 
 # Input box for Gateway IP (read-only)
 $gatewayLabel = New-Object System.Windows.Forms.Label
-$gatewayLabel.Location = New-Object System.Drawing.Point(10,160)
+$gatewayLabel.Location = New-Object System.Drawing.Point(10,170)
 $gatewayLabel.Size = New-Object System.Drawing.Size(100,20)
 $gatewayLabel.Text = "Gateway IP:"
 
 $gatewayTextBox = New-Object System.Windows.Forms.TextBox
-$gatewayTextBox.Location = New-Object System.Drawing.Point(110,160)
+$gatewayTextBox.Location = New-Object System.Drawing.Point(110,170)
 $gatewayTextBox.Size = New-Object System.Drawing.Size(110,20)
 $gatewayTextBox.ReadOnly = $true
 
@@ -151,10 +162,11 @@ $createVMSCheckbox = New-Object System.Windows.Forms.CheckBox
 $createVMSCheckbox.Location = New-Object System.Drawing.Point(10,220)
 $createVMSCheckbox.Size = New-Object System.Drawing.Size(150,20)
 $createVMSCheckbox.Text = "Create VMs"
+$createVMSCheckbox.Enabled = $false
 
 # Button to capture values
 $submitButton = New-Object System.Windows.Forms.Button
-$submitButton.Location = New-Object System.Drawing.Point(10,250)
+$submitButton.Location = New-Object System.Drawing.Point(10,270)
 $submitButton.Size = New-Object System.Drawing.Size(75,23)
 $submitButton.Text = "Submit"
 $submitButton.Add_Click({
@@ -185,6 +197,7 @@ $submitButton.Add_Click({
 })
 
 # Add controls to form
+$form.Controls.Add($formNameLabel)
 $form.Controls.Add($server2022RadioButton)
 $form.Controls.Add($server2025RadioButton)
 $form.Controls.Add($computerNameLabel)
