@@ -1,14 +1,31 @@
 {
     "DellR740": {
         "HQ": [
-            {"Role": "AD", "Memory": "4GB", "VHDSize": "40GB", "VCPUs": 2, "SwitchName": "HQNetwork"},
-            {"Role": "SQL", "Memory": "8GB", "VHDSize": "100GB", "VCPUs": 4, "SwitchName": "HQNetwork"}
+            {"Role": "AD", "Memory": "4GB", "VHDSize": "40GB", "VCPUs": 2, "SwitchName": "vmSwitch"},
+            {"Role": "SQL", "Memory": "8GB", "VHDSize": "100GB", "VCPUs": 4, "SwitchName": "vmSwitch"}
         ],
-        "Remote": [
-            {"Role": "Exchange", "Memory": "16GB", "VHDSize": "120GB", "VCPUs": 4, "SwitchName": "RemoteNetwork"}
+        "Formation": [
+            {"Role": "Exchange", "Memory": "16GB", "VHDSize": "120GB", "VCPUs": 4, "SwitchName": "vmSwitch"}
+        ],
+        "Light": [
+            {"Role": "Exchange", "Memory": "8GB", "VHDSize": "120GB", "VCPUs": 4, "SwitchName": "vmSwitch"}
         ]
     },
-    "HPProLiant": {
+    "DellXR4000": {
+        "Formation": [
+            {"Role": "Exchange", "Memory": "16GB", "VHDSize": "120GB", "VCPUs": 4, "SwitchName": "vmSwitch"}
+        ],
+        "Light": [
+            {"Role": "Exchange", "Memory": "8GB", "VHDSize": "120GB", "VCPUs": 4, "SwitchName": "vmSwitch"}
+        ],
+        "Ship-Heavy": [
+            {"Role": "Exchange", "Memory": "16GB", "VHDSize": "120GB", "VCPUs": 4, "SwitchName": "vmSwitch"}
+        ],
+        "Ship-Light": [
+            {"Role": "Exchange", "Memory": "8GB", "VHDSize": "120GB", "VCPUs": 4, "SwitchName": "vmSwitch"}
+        ]
+    },
+    "KLASVM4": {
         // Similar structure for another hardware platform
     }
 }
