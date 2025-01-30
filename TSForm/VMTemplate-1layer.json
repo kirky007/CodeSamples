@@ -1,0 +1,69 @@
+[
+    {
+        "Name": "Server1",
+        "HardwarePlatform": ["DellR740", "LenovoThinkSystem"],
+        "SiteType": ["HQ", "Satellite"],
+        "Role": "AD",
+        "Memory": "4GB",
+        "VHDSize": "40GB",
+        "VCPUs": 2,
+        "SwitchName": "HQPrimary"
+    },
+    {
+        "Name": "Server2",
+        "HardwarePlatform": ["HPProLiant"],
+        "SiteType": ["Remote"],
+        "Role": "SQL",
+        "Memory": "8GB",
+        "VHDSize": "100GB",
+        "VCPUs": 4,
+        "SwitchName": "RemoteNetwork"
+    },
+    {
+        "Name": "Server3",
+        "HardwarePlatform": ["DellR740", "HPEdgeLine"],
+        "SiteType": ["Satellite", "HQ"],
+        "Role": "Exchange",
+        "Memory": "16GB",
+        "VHDSize": "120GB",
+        "VCPUs": 4,
+        "SwitchName": "SatelliteNetwork"
+    },
+    {
+        "Name": "Server4",
+        "HardwarePlatform": ["DellR740", "LenovoThinkSystem"],
+        "SiteType": ["HQ", "Remote"],
+        "Role": "FileServer",
+        "Memory": "6GB",
+        "VHDSize": "50GB",
+        "VCPUs": 2,
+        "SwitchName": "HQSecondary"
+    }
+]
+
+
+
+# sample code
+
+# Parse JSON
+$jsonData = Get-Content -Path "C:\path\to\your\jsonfile.json" | ConvertFrom-Json
+
+# Example: Filter VMs for any server that can be on DellR740 hardware and in HQ or Satellite sites
+$multiCriteriaVMs = $jsonData | Where-Object {
+    $_.HardwarePlatform -contains "DellR740" -and 
+    ($_.SiteType -contains "HQ" -or $_.SiteType -contains "Satellite")
+}
+
+# Example: Filter VMs by only SiteType
+$satelliteOrHQVMs = $jsonData | Where-Object {
+    $_.SiteType -contains "HQ" -or $_.SiteType -contains "Satellite"
+}
+
+# Display results
+$multiCriteriaVMs | ForEach-Object {
+    Write-Host "VM: $($_.Name), Hardware: $($_.HardwarePlatform -join ', '), Sites: $($_.SiteType -join ', '), Role: $($_.Role)"
+}
+
+$satelliteOrHQVMs | ForEach-Object {
+    Write-Host "VM for HQ or Satellite: $($_.Name), Sites: $($_.SiteType -join ', ')"
+}
