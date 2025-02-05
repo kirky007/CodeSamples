@@ -1,43 +1,90 @@
 [
     {
-        "Name": "Server1",
-        "HardwarePlatform": ["DellR740", "LenovoThinkSystem"],
-        "SiteType": ["HQ", "Satellite"],
+        "Name": "ADP0001",
+        "HardwarePlatform": ["Virtual Machine"],
+        "SiteType": ["COR", "CEC-Large", "CEC-Small"],
+        "Node": ["Primary"],
         "Role": "AD",
-        "Memory": "4GB",
-        "VHDSize": "40GB",
-        "VCPUs": 2,
-        "SwitchName": "HQPrimary"
-    },
-    {
-        "Name": "Server2",
-        "HardwarePlatform": ["HPProLiant"],
-        "SiteType": ["Remote"],
-        "Role": "SQL",
         "Memory": "8GB",
         "VHDSize": "100GB",
-        "VCPUs": 4,
-        "SwitchName": "RemoteNetwork"
+        "VCPUs": 2,
+        "SwitchName": "vmSwitch"
     },
     {
-        "Name": "Server3",
-        "HardwarePlatform": ["DellR740", "HPEdgeLine"],
-        "SiteType": ["Satellite", "HQ"],
+        "Name": "ADP0002",
+        "HardwarePlatform": ["Virtual Machine"],
+        "SiteType": ["COR", "CEC-Large", "CEC-Small"],
+        "Node": ["Secondary"],
+        "Role": "AD",
+        "Memory": "8GB",
+        "VHDSize": "100GB",
+        "VCPUs": 2,
+        "SwitchName": "vmSwitch"
+    },
+    {
+        "Name": "FSP0001",
+        "HardwarePlatform": ["Virtual Machine"],
+        "SiteType": ["COR", "CEC-Large", "CEC-Small"],
+        "Node": ["Primary"],
+        "Role": "FileServer",
+        "Memory": "8GB",
+        "VHDSize": "100GB",
+        "VCPUs": 2,
+        "SwitchName": "vmSwitch"
+    },
+    {
+        "Name": "FSP0002",
+        "HardwarePlatform": ["Virtual Machine"],
+        "SiteType": ["COR", "CEC-Large"],
+        "Node": ["Secondary"],
+        "Role": "FileServer",
+        "Memory": "8GB",
+        "VHDSize": "100GB",
+        "VCPUs": 2,
+        "SwitchName": "vmSwitch"
+    },
+    {
+        "Name": "SXP0001",
+        "HardwarePlatform": ["Virtual Machine"],
+        "SiteType": ["COR", "CEC-Large", "CEC-Small"],
+        "Node": ["Primary"],
+        "Role": "SQL",
+        "Memory": "16GB",
+        "VHDSize": "100GB",
+        "VCPUs": 4,
+        "SwitchName": "vmSwitch"
+    },
+    {
+        "Name": "SXP0001",
+        "HardwarePlatform": ["Virtual Machine"],
+        "SiteType": ["COR", "CEC-Large"],
+        "Role": "SQL",
+        "Memory": "32GB",
+        "VHDSize": "100GB",
+        "VCPUs": 8,
+        "SwitchName": "vmSwitch"
+    },
+    {
+        "Name": "EXP0001",
+        "HardwarePlatform": ["Virtual Machine"],
+        "SiteType": ["COR", "CEC-Large","CEC-Small"],
+        "Node": ["Primary"],
         "Role": "Exchange",
         "Memory": "16GB",
-        "VHDSize": "120GB",
+        "VHDSize": "100GB",
         "VCPUs": 4,
-        "SwitchName": "SatelliteNetwork"
+        "SwitchName": "vmSwitch"
     },
     {
-        "Name": "Server4",
-        "HardwarePlatform": ["DellR740", "LenovoThinkSystem"],
-        "SiteType": ["HQ", "Remote"],
-        "Role": "FileServer",
-        "Memory": "6GB",
-        "VHDSize": "50GB",
-        "VCPUs": 2,
-        "SwitchName": "HQSecondary"
+        "Name": "EXP0002",
+        "HardwarePlatform": ["Virtual Machine"],
+        "SiteType": ["COR", "CEC-Large","CEC-Small"],
+        "Node": ["Secondary"],
+        "Role": "Exchange",
+        "Memory": "16GB",
+        "VHDSize": "100GB",
+        "VCPUs": 4,
+        "SwitchName": "vmSwitch"
     }
 ]
 
