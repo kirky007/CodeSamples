@@ -6,7 +6,7 @@
 
 # Scriptblock has 12k character limit, so using Standard Input piped to powershell to circumvent this limit - block is prefaced with @' and ends with '@ then piped to powershell.  
 # the powershell.exe -command parameter with "-" accepts this piped standard input.
-#@'
+@'
     # Hide progress bar
     $TSProgressUI = New-Object -COMObject Microsoft.SMS.TSProgressUI
     $TSProgressUI.CloseProgressDialog()
@@ -397,9 +397,7 @@
         exit 1
     }
 
-#'@ | powershell -noprofile -Command -
-
-#$CaptureVars = powershell.exe -NoProfile -ExecutionPolicy Bypass -Command $Script
+'@ | powershell -noprofile -Command -
 
 If ($lastexitcode -eq 0) {
     # All good, continue build
