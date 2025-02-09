@@ -415,16 +415,17 @@
     Write-Output $global:formValues | fl *
 
     # Set values to SMS TS variables
-    $TSEnv.Value('BuildOSVer') = $formValues.BuildOSVer
-    $TSEnv.Value('OSDComputerName') = $formValues.CompName
-    $TSEnv.Value('IPAddress') = $formValues.IP    
-    $TSEnv.Value('CIDR') = $formValues.CIDR
-    $TSEnv.Value('GWIP') = $formValues.GatewayIP
-    $TSEnv.Value('DNSIPs') = $formValues.DNSIPs
-    $TSEnv.Value('CEC') = $formValues.CEC
-    $TSEnv.Value('NetBiosName') = $formValues.NetBiosDomain
-    $TSEnv.Value('OSDDomainName') = $formValues.DomainFQDN
-    $TSEnv.Value('CreateVMs') = $formValues.CreateVMs
+    $TSEnv.Value('BuildOSVer') = $global:formValues.BuildOSVer
+    $TSEnv.Value('OSDComputerName') = $global:formValues.CompName
+    $TSEnv.Value('IPAddress') = $global:formValues.IP    
+    $TSEnv.Value('CIDR') = $global:formValues.CIDR
+    $TSEnv.Value('GWIP') = $global:formValues.GatewayIP
+    $TSEnv.Value('DNSIPs') = $global:formValues.DNSIPs
+    $TSEnv.Value('CEC') = $global:formValues.CEC
+    $TSEnv.Value('NetBiosName') = $global:formValues.NetBiosDomain
+    $TSEnv.Value('OSDDomainName') = $global:formValues.DomainFQDN
+    $TSEnv.Value('CreateVMs') = $global:formValues.CreateVMs
+
 
     if ($global:formSuccess) {
         "Capture Startup Variables script completed succesfully, refer to CaptureStartupVars.json for vars captured via the form." | Out-File $logFile -Append
