@@ -361,7 +361,7 @@
             return
         } else {
             $global:formValues = [PSCustomObject]@{
-                BuildOSVer = if ($server2022RadioButton.Checked) { "Server 2022" } else { "Server 2025" }
+                BuildOSVer = if ($server2022RadioButton.Checked) { "2022" } else { "2025" }
                 CompName = $computerNameTextBox.Text
                 IPAddress = $ipAddressTextBox.Text
                 CIDR = $cidrTextBox.Text
